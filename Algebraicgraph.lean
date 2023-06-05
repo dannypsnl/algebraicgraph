@@ -19,6 +19,9 @@ def vertex [i : Graph g] : i.Vertex g → g := i.vertex
 def overlay [i : Graph g] : g → g → g := i.overlay
 def connect [i : Graph g] : g → g → g := i.connect
 
+notation x " ⊕ " y => overlay x y
+notation x " ⇒ " y => connect x y
+
 def edge [i : Graph g] (x y : i.Vertex g) : g :=
   connect (vertex x) (vertex y)
 
@@ -27,3 +30,14 @@ def vertices [i : Graph g] (l : List (i.Vertex g)) : g :=
 
 def clique [i : Graph g] (l : List (i.Vertex g)) : g :=
   List.foldr connect empty (List.map vertex l)
+
+def edges [i : Graph g] (es : List (i.Vertex g × i.Vertex g)) : g :=
+  List.foldr overlay empty (List.map (fun (a, b) => edge a b) es)
+
+def graph [i : Graph g] (vs : List (i.Vertex g)) (es : List (i.Vertex g × i.Vertex g)) : g :=
+  overlay (vertices vs) (edges es)
+
+axiom identity {g : Type} [Graph g] (x : g) : (x ⊕ empty) = x
+axiom idempotence {g : Type} [Graph g] (x : g) : (x ⊕ x) = x
+axiom absorption {g : Type} [Graph g] (x y : g) : (x ⇒ y ⊕ x ⊕ y) = (x ⇒ y)
+axiom saturation {g : Type} [Graph g] (x : g) : (x ⇒ x ⇒ x) = (x ⇒ x)
