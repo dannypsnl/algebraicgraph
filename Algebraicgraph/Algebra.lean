@@ -25,13 +25,13 @@ def edge [i : Graph g] (x y : v) : g v :=
   connect (vertex x) (vertex y)
 
 def vertices [i : Graph g] (l : List v) : g v :=
-  List.foldr overlay empty (List.map vertex l)
+  (l.map vertex).foldr overlay empty
 
 def clique [i : Graph g] (l : List v) : g v :=
-  List.foldr connect empty (List.map vertex l)
+  (l.map vertex).foldr connect empty
 
 def edges [i : Graph g] (es : List (v × v)) : g v :=
-  List.foldr overlay empty (List.map (fun (a, b) => edge a b) es)
+  (es.map (fun (a, b) => edge a b)).foldr overlay empty
 
 def graph [i : Graph g] (vs : List v) (es : List (v × v)) : g v :=
   overlay (vertices vs) (edges es)
