@@ -22,7 +22,6 @@ instance : Graph Relation where
 
 #check Relation
 
-def hi : Relation Nat :=
-  connect (vertex 1) (vertex 2)
+#eval ((vertex 1) ⇒ (vertex 2) : Relation Nat)
+#eval ((vertex 1) ⇒ (vertex 2) ⊕ (vertex 2) ⇒ (vertex 3) : Relation Nat)
 
-#eval hi

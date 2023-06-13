@@ -18,8 +18,8 @@ def vertex [i : Graph g] : v → g v := i.vertex
 def overlay [i : Graph g] : g v → g v → g v := i.overlay
 def connect [i : Graph g] : g v → g v → g v := i.connect
 
-notation x " ⊕ " y => overlay x y
-notation x " ⇒ " y => connect x y
+notation:65 x " ⊕ " y => overlay x y
+notation:66 x " ⇒ " y => connect x y
 
 def edge [i : Graph g] (x y : v) : g v :=
   connect (vertex x) (vertex y)
