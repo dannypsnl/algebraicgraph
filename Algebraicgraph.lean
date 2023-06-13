@@ -1,2 +1,4 @@
 import Algebraicgraph.Algebra
 import Algebraicgraph.Relation
+import Algebraicgraph.AdjacencyMap
+import Algebraicgraph.ToList
