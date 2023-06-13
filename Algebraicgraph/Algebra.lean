@@ -1,5 +1,6 @@
 -- Andrey Mokhov, Algebraic Graphs with Class (Functional Pearl)
 -- https://dl.acm.org/doi/pdf/10.1145/3122955.3122956
+import Std.Data.List.Basic
 
 -- the different between connect and overlay can be done by this example:
 --
@@ -47,3 +48,15 @@ axiom saturation {g : Type → Type} {v : Type} [Graph g] (x : g v)
 
 def subgraph_of? [Graph g] [BEq (g v)] (x y : g v) : Bool :=
   overlay x y == y
+
+def path [Graph g] : List v → g v
+  | [] => empty
+  | [x] => vertex x
+  | xs => edges (xs.zip xs.tail)
+
+def circuit [Graph g] : List v → g v
+  | [] => empty
+  | x :: xs => path ((x :: xs) ++ [x])
+
+def star [Graph g] (x : v) (ys : List v) : g v :=
+  connect (vertex x) (vertices ys)
