@@ -45,5 +45,5 @@ axiom absorption {g : Type → Type} {v : Type} [Graph g] (x y : g v)
 axiom saturation {g : Type → Type} {v : Type} [Graph g] (x : g v)
   : (x ⇒ x ⇒ x) = (x ⇒ x)
 
-def subgraphOf? [Graph g] [BEq (g v)] (x y : g v) : Bool :=
+def subgraph_of? [Graph g] [BEq (g v)] (x y : g v) : Bool :=
   overlay x y == y
