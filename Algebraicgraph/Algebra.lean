@@ -21,19 +21,19 @@ def connect [i : Graph g] : g v → g v → g v := i.connect
 notation:65 x " ⊕ " y => overlay x y
 notation:66 x " ⇒ " y => connect x y
 
-def edge [i : Graph g] (x y : v) : g v :=
+def edge [Graph g] (x y : v) : g v :=
   connect (vertex x) (vertex y)
 
-def vertices [i : Graph g] (l : List v) : g v :=
+def vertices [Graph g] (l : List v) : g v :=
   (l.map vertex).foldr overlay empty
 
-def clique [i : Graph g] (l : List v) : g v :=
+def clique [Graph g] (l : List v) : g v :=
   (l.map vertex).foldr connect empty
 
-def edges [i : Graph g] (es : List (v × v)) : g v :=
+def edges [Graph g] (es : List (v × v)) : g v :=
   (es.map (fun (a, b) => edge a b)).foldr overlay empty
 
-def graph [i : Graph g] (vs : List v) (es : List (v × v)) : g v :=
+def graph [Graph g] (vs : List v) (es : List (v × v)) : g v :=
   overlay (vertices vs) (edges es)
 
 axiom identity {g : Type → Type} {v : Type} [Graph g] (x : g v)
