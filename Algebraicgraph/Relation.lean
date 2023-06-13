@@ -13,6 +13,9 @@ structure Relation (α : Type) where
 instance [ToString α] [BEq α] [Hashable α] : ToString (Relation α) where
   toString x := s!"{x.dom.toList} {x.rel.toList}"
 
+instance [BEq α] [Hashable α] : BEq (Relation α) where
+  beq x y := x.dom.toArray == y.dom.toArray && x.rel.toArray == y.rel.toArray
+
 instance : Graph Relation where
   empty := ⟨ empty, empty ⟩
   vertex x := ⟨ empty.insert x, empty ⟩
@@ -28,3 +31,9 @@ instance : Graph Relation where
 #eval ((vertex 1) ⇒ (vertex 2) : Relation Nat)
 #eval ((vertex 1) ⇒ (vertex 2) ⊕ (vertex 2) ⇒ (vertex 3) : Relation Nat)
 #eval ((vertex 1) ⇒ ((vertex 2) ⊕ (vertex 3)) : Relation Nat)
+
+private def pentagon : Relation Nat := circuit (List.range 5)
+
+#eval (path (List.range 5) : Relation Nat)
+#eval pentagon
+#eval (subgraph_of? (path (List.range 5)) pentagon)
