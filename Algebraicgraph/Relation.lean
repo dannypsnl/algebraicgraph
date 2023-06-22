@@ -5,25 +5,23 @@ open Lean
 open Lean.HashSet
 
 structure Relation (α : Type) where
-  -- domain
-  dom [BEq α] [Hashable α] : HashSet α
-  -- relation
-  rel [BEq α] [Hashable α] : HashSet (α × α)
+  domain [BEq α] [Hashable α] : HashSet α
+  relation [BEq α] [Hashable α] : HashSet (α × α)
 
 instance [ToString α] [BEq α] [Hashable α] : ToString (Relation α) where
-  toString x := s!"{x.dom.toList} {x.rel.toList}"
+  toString x := s!"{x.domain.toList} {x.relation.toList}"
 
 instance [BEq α] [Hashable α] : BEq (Relation α) where
-  beq x y := x.dom.toArray == y.dom.toArray && x.rel.toArray == y.rel.toArray
+  beq x y := x.domain.toArray == y.domain.toArray && x.relation.toArray == y.relation.toArray
 
 instance : Graph Relation where
   empty := ⟨ empty, empty ⟩
   vertex x := ⟨ empty.insert x, empty ⟩
-  overlay x y := ⟨ x.dom.insertMany y.dom, x.rel.insertMany y.rel ⟩
+  overlay x y := ⟨ x.domain.insertMany y.domain, x.relation.insertMany y.relation ⟩
   connect x y :=
-    ⟨ x.dom.insertMany y.dom,
-      (x.rel.insertMany y.rel).insertMany
-        (x.dom.toList.product y.dom.toList)
+    ⟨ x.domain.insertMany y.domain,
+      (x.relation.insertMany y.relation).insertMany
+        (x.domain.toList.product y.domain.toList)
     ⟩
 
 #check Relation
