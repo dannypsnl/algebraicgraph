@@ -24,6 +24,10 @@ instance : Graph Relation where
         (x.domain.toList.product y.domain.toList)
     ⟩
 
+def Relation.edgeList [BEq v] [Hashable v] (g : Relation v)
+  : List (v × v) :=
+  g.relation.toList
+
 #check Relation
 
 #eval ((vertex 1) ⇒ (vertex 2) : Relation Nat)
