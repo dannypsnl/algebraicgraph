@@ -1,6 +1,6 @@
 -- Andrey Mokhov, Algebraic Graphs with Class (Functional Pearl)
 -- https://dl.acm.org/doi/pdf/10.1145/3122955.3122956
-import Std.Data.List.Basic
+import Batteries.Data.List.Basic
 
 -- the different between connect and overlay can be done by this example:
 --

@@ -1,5 +1,5 @@
 import Std.Data.HashSet
-import Batteries.Data.HashMap
+import Std.Data.HashMap
 import Algebraicgraph.Algebra
 open Std
 open Std.HashSet
@@ -15,19 +15,19 @@ instance [ToString α] [BEq α] [Hashable α] : ToString (AdjacencyMap α) where
 
 def mergeMap [BEq α] [Hashable α] (x y : HashMap α (HashSet α))
   : HashMap α (HashSet α) :=
-  x.fold (fun σ k v => σ.insert k (v.insertMany (σ.findD k empty))) y
+  x.fold (fun σ k v => σ.insert k (v.insertMany (σ.getD k emptyWithCapacity))) y
 
 def newValues [BEq α] [Hashable α] (x : HashMap α (HashSet α)) (nv : (HashSet α))
   : HashMap α (HashSet α) :=
-  x.fold (fun σ k _ => σ.insert k nv) empty
+  x.fold (fun σ k _ => σ.insert k nv) emptyWithCapacity
 
 def keys [BEq α] [Hashable α] (x : HashMap α (HashSet α))
   : HashSet α :=
-  x.fold (fun σ k _ => σ.insert k) empty
+  x.fold (fun σ k _ => σ.insert k) emptyWithCapacity
 
 instance : Graph AdjacencyMap where
-  empty := ⟨ empty ⟩
-  vertex x := ⟨ empty.insert x empty ⟩
+  empty := ⟨ emptyWithCapacity ⟩
+  vertex x := ⟨ emptyWithCapacity.insert x emptyWithCapacity ⟩
   overlay x y := ⟨ mergeMap x.adjacencyMap y.adjacencyMap ⟩
   connect (x y : AdjacencyMap _) :=
     ⟨ mergeMap x.adjacencyMap y.adjacencyMap

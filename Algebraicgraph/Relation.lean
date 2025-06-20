@@ -1,5 +1,5 @@
 import Std.Data.HashSet
-import Std.Data.List.Basic
+import Batteries.Data.List.Basic
 import Algebraicgraph.Algebra
 open Std
 open Std.HashSet
@@ -15,8 +15,8 @@ instance [BEq α] [Hashable α] : BEq (Relation α) where
   beq x y := x.domain.toArray == y.domain.toArray && x.relation.toArray == y.relation.toArray
 
 instance : Graph Relation where
-  empty := ⟨ empty, empty ⟩
-  vertex x := ⟨ empty.insert x, empty ⟩
+  empty := ⟨ emptyWithCapacity, emptyWithCapacity ⟩
+  vertex x := ⟨ emptyWithCapacity.insert x, emptyWithCapacity ⟩
   overlay x y := ⟨ x.domain.insertMany y.domain, x.relation.insertMany y.relation ⟩
   connect x y :=
     ⟨ x.domain.insertMany y.domain,
