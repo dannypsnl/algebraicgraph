@@ -1,8 +1,8 @@
-import Lean.Data.HashSet
+import Std.Data.HashSet
 import Std.Data.List.Basic
 import Algebraicgraph.Algebra
-open Lean
-open Lean.HashSet
+open Std
+open Std.HashSet
 
 structure Relation (α : Type) where
   domain [BEq α] [Hashable α] : HashSet α

@@ -10,4 +10,4 @@ lean_lib «Algebraicgraph» {
   -- add library configuration options here
 }
 
-require std from git "https://github.com/leanprover/std4.git" @"main"
+require batteries from git "https://github.com/leanprover/std4.git" @"main"

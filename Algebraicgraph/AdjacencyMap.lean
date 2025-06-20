@@ -1,9 +1,9 @@
-import Lean.Data.HashSet
-import Lean.Data.HashMap
+import Std.Data.HashSet
+import Batteries.Data.HashMap
 import Algebraicgraph.Algebra
-open Lean
-open Lean.HashSet
-open Lean.HashMap
+open Std
+open Std.HashSet
+open Std.HashMap
 
 structure AdjacencyMap (α : Type) where
   adjacencyMap [BEq α] [Hashable α] : HashMap α (HashSet α)
